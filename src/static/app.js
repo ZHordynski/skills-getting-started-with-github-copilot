@@ -21,9 +21,26 @@ document.addEventListener("DOMContentLoaded", () => {
 
         const spotsLeft = details.max_participants - details.participants.length;
         const participantsList =
-          details.participants.length > 0
-            ? details.participants.map((email) => `<li>${email}</li>`).join("")
-            : '<li class="no-participants">No participants yet</li>';
+  details.participants.length > 0
+    ? details.participants
+        .map(
+          (email) => `
+            <li class="participant-item">
+              <span class="participant-email">${email}</span>
+              <button
+                type="button"
+                class="delete-participant-btn"
+                data-activity="${name}"
+                data-email="${email}"
+                aria-label="Unregister ${email} from ${name}"
+                title="Unregister participant"
+              >
+                x
+              </button>
+            </li>`
+        )
+        .join("")
+    : '<li class="no-participants">No participants yet</li>';
 
         activityCard.innerHTML = `
           <h4>${name}</h4>
